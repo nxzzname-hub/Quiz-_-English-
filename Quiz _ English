@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>English MCQ Quiz — Units 15–19</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--navy:#0a1628;--teal:#0e7490;--teal-light:#22d3ee;--red:#ef4444;--green:#10b981;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'DM Sans',sans-serif;background:var(--navy);min-height:100vh;overflow-x:hidden;padding-bottom:80px;}
+.bg-orbs{position:fixed;inset:0;pointer-events:none;z-index:0;}
+.orb{position:absolute;border-radius:50%;filter:blur(80px);opacity:.18;animation:drift 12s ease-in-out infinite alternate;}
+.orb1{width:500px;height:500px;background:#0e7490;top:-100px;left:-100px;}
+.orb2{width:400px;height:400px;background:#0f766e;top:40%;right:-80px;animation-delay:3s;}
+.orb3{width:300px;height:300px;background:#1d4ed8;bottom:10%;left:20%;animation-delay:6s;}
+@keyframes drift{from{transform:translate(0,0) scale(1)}to{transform:translate(30px,40px) scale(1.08)}}
+.sticky{position:fixed;top:0;left:0;right:0;z-index:999;background:rgba(10,22,40,.92);backdrop-filter:blur(16px);border-bottom:1px solid rgba(14,116,144,.3);padding:10px 20px;}
+.sticky-inner{max-width:860px;margin:0 auto;display:flex;align-items:center;gap:10px;flex-wrap:wrap;}
+.pill{padding:5px 14px;border-radius:20px;font-size:.8em;font-weight:600;white-space:nowrap;}
+.pill-q{background:rgba(255,255,255,.1);color:#e2e8f0;border:1px solid rgba(255,255,255,.2);}
+.pill-c{background:rgba(16,185,129,.2);color:#6ee7b7;border:1px solid #10b981;}
+.pill-w{background:rgba(239,68,68,.2);color:#fca5a5;border:1px solid #ef4444;}
+.pill-p{background:rgba(245,158,11,.2);color:#fcd34d;border:1px solid #f59e0b;}
+.prog-wrap{flex:1;background:rgba(255,255,255,.1);border-radius:8px;height:6px;min-width:60px;overflow:hidden;}
+.prog-fill{background:linear-gradient(90deg,var(--teal),var(--teal-light));height:100%;border-radius:8px;transition:width .5s;}
+#startScreen{position:relative;z-index:1;max-width:700px;margin:60px auto 0;padding:20px;}
+.start-card{background:rgba(255,255,255,.05);backdrop-filter:blur(20px);border:1px solid rgba(14,116,144,.4);border-radius:24px;padding:44px 40px;box-shadow:0 40px 80px rgba(0,0,0,.5),inset 0 1px 0 rgba(255,255,255,.1);}
+.cross-icon{font-size:3.5em;display:block;text-align:center;margin-bottom:14px;animation:pulse-icon 3s ease-in-out infinite;}
+@keyframes pulse-icon{0%,100%{transform:scale(1);filter:drop-shadow(0 0 15px rgba(34,211,238,.4))}50%{transform:scale(1.06);filter:drop-shadow(0 0 30px rgba(34,211,238,.8))}}
+.start-card h1{font-family:'Playfair Display',serif;font-size:2.2em;font-weight:900;color:#fff;text-align:center;margin-bottom:6px;}
+.subtitle{text-align:center;color:var(--teal-light);font-size:.95em;margin-bottom:26px;opacity:.85;}
+.section-label{color:#94a3b8;font-size:.8em;font-weight:600;text-transform:uppercase;letter-spacing:.1em;margin-bottom:10px;}
+.filter-group{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:24px;}
+.filter-btn{padding:7px 16px;border-radius:20px;cursor:pointer;font-size:.85em;font-weight:500;transition:all .2s;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.15);color:#94a3b8;}
+.filter-btn:hover{border-color:var(--teal-light);color:var(--teal-light);background:rgba(34,211,238,.08);}
+.filter-btn.active{background:linear-gradient(135deg,rgba(14,116,144,.5),rgba(34,211,238,.2));border-color:var(--teal-light);color:var(--teal-light);box-shadow:0 0 14px rgba(34,211,238,.2);}
+.start-info{color:#64748b;font-size:.9em;text-align:center;margin-bottom:22px;}
+.start-info span{color:var(--teal-light);font-weight:700;}
+.btn-start{width:100%;padding:16px;border:none;border-radius:14px;background:linear-gradient(135deg,var(--teal),#0891b2);color:#fff;font-size:1.1em;font-weight:700;font-family:'DM Sans',sans-serif;cursor:pointer;transition:all .25s;box-shadow:0 8px 30px rgba(14,116,144,.5);}
+.btn-start:hover{transform:translateY(-3px);box-shadow:0 14px 40px rgba(14,116,144,.6);}
+#quizWrapper{display:none;padding-top:75px;position:relative;z-index:1;}
+.sec-hdr{max-width:860px;margin:30px auto 4px;padding:0 18px;display:flex;align-items:center;gap:14px;}
+.sec-hdr .line{flex:1;height:1px;background:linear-gradient(90deg,rgba(14,116,144,.5),transparent);}
+.sec-hdr .line.r{background:linear-gradient(270deg,rgba(14,116,144,.5),transparent);}
+.sec-hdr .lbl{color:var(--teal-light);font-size:.78em;font-weight:700;text-transform:uppercase;letter-spacing:.1em;white-space:nowrap;background:rgba(14,116,144,.2);border:1px solid rgba(14,116,144,.4);padding:4px 14px;border-radius:20px;}
+.q-card{max-width:860px;margin:16px auto;padding:26px 30px;background:rgba(255,255,255,.97);border-radius:20px;box-shadow:0 8px 40px rgba(0,0,0,.3);border-left:5px solid rgba(14,116,144,.3);transition:border-color .35s;animation:slideIn .3s ease both;}
+@keyframes slideIn{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
+.q-card.answered-correct{border-left-color:var(--green);}
+.q-card.answered-wrong{border-left-color:var(--red);}
+.q-header{display:flex;align-items:center;gap:10px;margin-bottom:14px;flex-wrap:wrap;}
+.q-num{background:linear-gradient(135deg,var(--teal),#0891b2);color:#fff;min-width:36px;height:36px;padding:0 8px;border-radius:18px;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:.85em;flex-shrink:0;}
+.cat-tag{background:linear-gradient(135deg,#0e7490,#0891b2);color:#fff;padding:3px 12px;border-radius:20px;font-size:.72em;font-weight:600;}
+.q-text{font-size:1.05em;font-weight:600;color:#0f172a;line-height:1.6;margin-bottom:16px;}
+.opts{display:flex;flex-direction:column;gap:9px;}
+.opt{padding:12px 18px;border:2px solid #e2e8f0;border-radius:12px;cursor:pointer;font-size:.95em;text-align:left;background:#fff;color:#334155;transition:all .18s;font-family:'DM Sans',sans-serif;display:flex;align-items:center;gap:10px;}
+.opt::before{content:attr(data-letter);width:28px;height:28px;border-radius:50%;background:#f1f5f9;border:2px solid #cbd5e1;display:flex;align-items:center;justify-content:center;font-size:.8em;font-weight:700;color:#64748b;flex-shrink:0;transition:all .18s;}
+.opt:hover:not(:disabled){border-color:var(--teal);background:#f0fdfa;transform:translateX(5px);}
+.opt:hover:not(:disabled)::before{background:var(--teal);border-color:var(--teal);color:#fff;}
+.opt.correct{border-color:var(--green);background:#f0fdf4;color:#065f46;font-weight:600;}
+.opt.correct::before{background:var(--green);border-color:var(--green);color:#fff;}
+.opt.wrong{border-color:var(--red);background:#fef2f2;color:#7f1d1d;}
+.opt.wrong::before{background:var(--red);border-color:var(--red);color:#fff;}
+.opt:disabled{cursor:default;}
+.q-feedback{margin-top:14px;padding:12px 16px;border-radius:12px;font-size:.88em;line-height:1.6;display:none;}
+.q-feedback.correct{background:#f0fdf4;border-left:4px solid var(--green);color:#065f46;}
+.q-feedback.wrong{background:#fef2f2;border-left:4px solid var(--red);color:#7f1d1d;}
+.submit-wrap{max-width:860px;margin:26px auto;text-align:center;padding:0 20px;}
+.btn-submit{padding:16px 70px;border:none;border-radius:14px;background:linear-gradient(135deg,var(--teal),#0891b2);color:#fff;font-size:1.1em;font-weight:700;font-family:'DM Sans',sans-serif;cursor:pointer;transition:all .2s;box-shadow:0 8px 30px rgba(14,116,144,.5);}
+.btn-submit:hover{transform:translateY(-3px);}
+.btn-submit:disabled{opacity:.4;cursor:not-allowed;transform:none;}
+#resultsBox{max-width:860px;margin:24px auto;padding:40px;background:rgba(255,255,255,.97);border-radius:24px;text-align:center;display:none;box-shadow:0 30px 80px rgba(0,0,0,.4);}
+#resultsBox h2{font-family:'Playfair Display',serif;color:var(--navy);font-size:2em;margin-bottom:8px;}
+.score-ring{width:160px;height:160px;margin:20px auto;position:relative;}
+.score-ring svg{transform:rotate(-90deg);}
+.ring-bg{fill:none;stroke:#e2e8f0;stroke-width:12;}
+.ring-fg{fill:none;stroke:url(#rg);stroke-width:12;stroke-linecap:round;transition:stroke-dashoffset 1s cubic-bezier(.4,0,.2,1);}
+.score-center{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;}
+.score-center .big{font-size:2.4em;font-weight:900;color:var(--navy);font-family:'Playfair Display',serif;}
+.score-center .small{font-size:.8em;color:#64748b;}
+.result-msg{font-size:1.05em;color:#475569;margin:10px 0 24px;}
+.stats-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:24px;}
+.stat-card{border-radius:16px;padding:16px 10px;}
+.stat-card.c{background:#f0fdf4;border:2px solid #10b981;}
+.stat-card.w{background:#fef2f2;border:2px solid #ef4444;}
+.stat-card.p{background:#fffbeb;border:2px solid #f59e0b;}
+.stat-card .num{font-size:2em;font-weight:900;font-family:'Playfair Display',serif;}
+.stat-card.c .num{color:#10b981;}.stat-card.w .num{color:#ef4444;}.stat-card.p .num{color:#f59e0b;}
+.stat-card .lbl{font-size:.8em;color:#64748b;margin-top:4px;}
+.btn-re,.btn-home{width:100%;padding:14px;border:none;border-radius:14px;font-size:1.05em;font-weight:700;font-family:'DM Sans',sans-serif;cursor:pointer;margin-bottom:10px;transition:all .2s;}
+.btn-re{background:linear-gradient(135deg,var(--teal),#0891b2);color:#fff;}
+.btn-home{background:#f1f5f9;color:#475569;}
+.btn-re:hover{transform:translateY(-2px);}.btn-home:hover{background:#e2e8f0;}
+.review-section{text-align:left;margin-top:24px;}
+.review-section h3{color:var(--navy);font-size:1.1em;margin-bottom:14px;font-family:'Playfair Display',serif;}
+.rev-item{padding:14px 16px;border-radius:12px;margin-bottom:10px;font-size:.88em;line-height:1.6;}
+.rev-item.wrong{background:#fef2f2;border-left:4px solid var(--red);}
+.rev-item .rt{font-weight:700;margin-bottom:5px;color:#1e293b;}
+.rev-item .exp{color:#64748b;font-size:.9em;margin-top:5px;}
+@media(max-width:600px){.start-card{padding:28px 20px}.start-card h1{font-size:1.7em}.q-card{padding:18px 14px;margin:12px 10px}#resultsBox{padding:24px 16px}}
+</style>
+</head>
+<body>
+<div class="bg-orbs"><div class="orb orb1"></div><div class="orb orb2"></div><div class="orb orb3"></div></div>
+
+<div class="sticky" id="stickyBar" style="display:none">
+  <div class="sticky-inner">
+    <div class="pill pill-q" id="sNum">0/0</div>
+    <div class="pill pill-c" id="sC">✅ 0</div>
+    <div class="pill pill-w" id="sW">❌ 0</div>
+    <div class="pill pill-p" id="sP">📊 0%</div>
+    <div class="prog-wrap"><div class="prog-fill" id="sFill" style="width:0%"></div></div>
+  </div>
+</div>
+
+<div id="startScreen">
+  <div class="start-card">
+    <span class="cross-icon">📘</span>
+    <h1>English MCQ Quiz</h1>
+    <p class="subtitle">Units 15 – 19</p>
+    <p class="section-label">اختر الموضوع</p>
+    <div class="filter-group">
+      <button class="filter-btn active" onclick="selCat('all',this)">📚 الكل</button>
+      <button class="filter-btn" onclick="selCat('u15',this)">🔗 Unit 15: Conjunctions</button>
+      <button class="filter-btn" onclick="selCat('u16',this)">📅 Unit 16: Time Words (1)</button>
+      <button class="filter-btn" onclick="selCat('u17',this)">⏰ Unit 17: Time Words (2)</button>
+      <button class="filter-btn" onclick="selCat('u18',this)">📍 Unit 18: Places</button>
+      <button class="filter-btn" onclick="selCat('u19',this)">💬 Unit 19: Adverbs</button>
+    </div>
+    <p class="start-info">عدد أسئلة MCQ: <span id="qCount">0</span></p>
+    <button class="btn-start" onclick="startQuiz()">ابدأ الاختبار ▶</button>
+  </div>
+</div>
+
+<div id="quizWrapper">
+  <div id="cardsContainer"></div>
+  <div class="submit-wrap">
+    <button class="btn-submit" id="submitBtn" onclick="showResults()" disabled>عرض النتيجة 🎯</button>
+  </div>
+  <div id="resultsBox">
+    <h2>🎉 انتهى الاختبار!</h2>
+    <div class="score-ring">
+      <svg width="160" height="160" viewBox="0 0 160 160">
+        <defs><linearGradient id="rg" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" stop-color="#0e7490"/><stop offset="100%" stop-color="#22d3ee"/></linearGradient></defs>
+        <circle class="ring-bg" cx="80" cy="80" r="64"/>
+        <circle class="ring-fg" id="ringFg" cx="80" cy="80" r="64" stroke-dasharray="402" stroke-dashoffset="402"/>
+      </svg>
+      <div class="score-center"><span class="big" id="rScore">0</span><span class="small">من <span id="rTotal">0</span></span></div>
+    </div>
+    <div class="result-msg" id="rMsg"></div>
+    <div class="stats-grid">
+      <div class="stat-card c"><div class="num" id="rC">0</div><div class="lbl">✅ صح</div></div>
+      <div class="stat-card w"><div class="num" id="rW">0</div><div class="lbl">❌ غلط</div></div>
+      <div class="stat-card p"><div class="num" id="rP">0%</div><div class="lbl">📊 النسبة</div></div>
+    </div>
+    <button class="btn-re" onclick="startQuiz()">🔄 إعادة الاختبار</button>
+    <button class="btn-home" onclick="goHome()">🏠 الرئيسية</button>
+    <div class="review-section" id="reviewDiv"></div>
+  </div>
+</div>
+
+<script>
+const L=['A','B','C','D'];
+const CATS={
+  u15:'🔗 Unit 15: Conjunctions and Connecting Words',
+  u16:'📅 Unit 16: Time Words (1) – Days, Months, and Seasons',
+  u17:'⏰ Unit 17: Time Words (2)',
+  u18:'📍 Unit 18: Places',
+  u19:'💬 Unit 19: Adverbs'
+};
+const ORDER=['u15','u16','u17','u18','u19'];
+
+// c = رقم الإجابة الصحيحة: 0=A , 1=B , 2=C
+const RAW=[
+  // ─── UNIT 15 ───
+  {n:1,cat:'u15',q:"I was tired, ____ I went to bed early.",opts:["and","so","but"],c:1},
+  {n:2,cat:'u15',q:"She is rich, ____ she is not happy.",opts:["because","but","so"],c:1},
+  {n:3,cat:'u15',q:"We stayed at home ____ it was raining.",opts:["because","although","than"],c:0},
+  {n:4,cat:'u15',q:"He studied hard, ____ he passed the exam.",opts:["so","but","although"],c:0},
+  {n:5,cat:'u15',q:"Call me ____ you arrive.",opts:["when","than","because"],c:0},
+  {n:6,cat:'u15',q:"Wash your hands ____ dinner.",opts:["after","because","so"],c:0},
+  {n:7,cat:'u15',q:"We went home ____, the concert ended.",opts:["before","after","but"],c:1},
+  {n:8,cat:'u15',q:"____ it was cold, we went for a walk.",opts:["Although","Because","So"],c:0},
+  {n:9,cat:'u15',q:"I will go to the party ____ I am tired.",opts:["if","although","than"],c:1},
+  {n:10,cat:'u15',q:"You can come with us ____ you finish your work.",opts:["if","but","because"],c:0},
+  {n:11,cat:'u15',q:"I like tea ____ coffee.",opts:["and","because","although"],c:0},
+  {n:12,cat:'u15',q:"He works hard, ____ he earns little money.",opts:["but","so","because"],c:0},
+  {n:13,cat:'u15',q:"She stayed home ____ she was sick.",opts:["because","so","than"],c:0},
+  {n:14,cat:'u15',q:"I will call you ____ I get home.",opts:["when","but","than"],c:0},
+  {n:15,cat:'u15',q:"Finish your homework ____ you watch TV.",opts:["before","because","although"],c:0},
+  {n:16,cat:'u15',q:"My brother is taller ____ me.",opts:["as well","than","because"],c:1},
+  {n:17,cat:'u15',q:"I like football. I like basketball, ____.",opts:["too","than","if"],c:0},
+  {n:18,cat:'u15',q:"She speaks English, and she speaks French ____.",opts:["also","because","but"],c:0},
+  {n:19,cat:'u15',q:"He is ____ a good student as his sister.",opts:["as","than","so"],c:0},
+  {n:20,cat:'u15',q:"I eat ____ vegetables and fruit every day.",opts:["only","both","than"],c:1},
+
+  // ─── UNIT 16 ───
+  {n:21,cat:'u16',q:"How many days are there in a week?",opts:["Five","Seven","Ten"],c:1},
+  {n:22,cat:'u16',q:"How many months are there in a year?",opts:["12","10","7"],c:0},
+  {n:23,cat:'u16',q:"There are ____ hours in a day.",opts:["12","24","60"],c:1},
+  {n:24,cat:'u16',q:"There are 60 ____ in an hour.",opts:["minutes","days","weeks"],c:0},
+  {n:25,cat:'u16',q:"The day after Monday is ____.",opts:["Sunday","Tuesday","Friday"],c:1},
+  {n:26,cat:'u16',q:"The day before Friday is ____.",opts:["Thursday","Saturday","Monday"],c:0},
+  {n:27,cat:'u16',q:"Saturday and Sunday are the ____.",opts:["weekend","weekday","month"],c:0},
+  {n:28,cat:'u16',q:"Which word is a month?",opts:["Winter","April","Tuesday"],c:1},
+  {n:29,cat:'u16',q:"Which word is a season?",opts:["August","Friday","Summer"],c:2},
+  {n:30,cat:'u16',q:"My birthday is ____ May.",opts:["on","in","at"],c:1},
+  {n:31,cat:'u16',q:"We have English class ____ Monday.",opts:["on","in","at"],c:0},
+  {n:32,cat:'u16',q:"The names of days in English begin with a ____.",opts:["small letter","capital letter","number"],c:1},
+  {n:33,cat:'u16',q:"Which month comes after June?",opts:["May","July","August"],c:1},
+  {n:34,cat:'u16',q:"Which month comes before January?",opts:["December","February","March"],c:0},
+  {n:35,cat:'u16',q:"The day before today is ____.",opts:["tomorrow","yesterday","next week"],c:1},
+  {n:36,cat:'u16',q:"The day after today is ____.",opts:["yesterday","last week","tomorrow"],c:2},
+  {n:37,cat:'u16',q:"Which is a correct phrase?",opts:["in winter","on winter","at winter"],c:0},
+  {n:38,cat:'u16',q:"There are ____ seconds in a minute.",opts:["30","60","100"],c:1},
+  {n:39,cat:'u16',q:"There are ____ weeks in a year.",opts:["52","12","24"],c:0},
+  {n:40,cat:'u16',q:"A period of 100 years is a ____.",opts:["century","weekend","season"],c:0},
+
+  // ─── UNIT 17 ───
+  {n:41,cat:'u17',q:"Now means ____.",opts:["at this moment","last year","next month"],c:0},
+  {n:42,cat:'u17',q:"I got up two hours ____.",opts:["ago","next","soon"],c:0},
+  {n:43,cat:'u17',q:"I will eat lunch ____ two hours.",opts:["ago","in","last"],c:1},
+  {n:44,cat:'u17',q:"I lived there ____ two years.",opts:["for","on","at"],c:0},
+  {n:45,cat:'u17',q:"I worked there from 2018 ____ 2020.",opts:["for","to","in"],c:1},
+  {n:46,cat:'u17',q:"The month before this month is ____.",opts:["next month","last month","soon"],c:1},
+  {n:47,cat:'u17',q:"The month after this month is ____.",opts:["last month","yesterday","next month"],c:2},
+  {n:48,cat:'u17',q:"Which word means \"at this moment\"?",opts:["recently","at the moment","last week"],c:1},
+  {n:49,cat:'u17',q:"\"Soon\" means in ____.",opts:["a short time","a long time ago","every year"],c:0},
+  {n:50,cat:'u17',q:"Which is about the past?",opts:["next year","last year","in two years"],c:1},
+  {n:51,cat:'u17',q:"I brush my teeth twice ____ day.",opts:["a","the","an"],c:0},
+  {n:52,cat:'u17',q:"I go swimming once ____ week.",opts:["a","at","on"],c:0},
+  {n:53,cat:'u17',q:"She ____ drinks coffee every morning.",opts:["never","always","rarely"],c:1},
+  {n:54,cat:'u17',q:"If you do something zero times, you ____ do it.",opts:["always","often","never"],c:2},
+  {n:55,cat:'u17',q:"\"Rarely\" means ____.",opts:["not often","every day","all the time"],c:0},
+  {n:56,cat:'u17',q:"\"Usually\" means ____.",opts:["most of the time","never","once only"],c:0},
+  {n:57,cat:'u17',q:"Which word shows the highest frequency?",opts:["never","sometimes","always"],c:2},
+  {n:58,cat:'u17',q:"We met recently. This means we met ____.",opts:["not long ago","many years ago","tomorrow"],c:0},
+  {n:59,cat:'u17',q:"Which phrase is correct?",opts:["three times a month","three time in month","three times on month"],c:0},
+  {n:60,cat:'u17',q:"In the future means ____.",opts:["before now","after now","at no time"],c:1},
+
+  // ─── UNIT 18 ───
+  {n:61,cat:'u18',q:"\"Come here\" means come ____.",opts:["to this place","to another country","away from me"],c:0},
+  {n:62,cat:'u18',q:"The top of a mountain is its ____.",opts:["highest part","lowest part","side"],c:0},
+  {n:63,cat:'u18',q:"The bottom of a glass is its ____.",opts:["top","lowest part","front"],c:1},
+  {n:64,cat:'u18',q:"The front of a car is ____.",opts:["the back part","the side part","the forward part"],c:2},
+  {n:65,cat:'u18',q:"The back of a car is opposite the ____.",opts:["front","top","middle"],c:0},
+  {n:66,cat:'u18',q:"The middle of the road is ____.",opts:["the center","the end","the side"],c:0},
+  {n:67,cat:'u18',q:"The pharmacy is on the ____ of the street.",opts:["left","bottom","top"],c:0},
+  {n:68,cat:'u18',q:"The restaurant is on the right. \"Right\" is the opposite of ____.",opts:["front","left","back"],c:1},
+  {n:69,cat:'u18',q:"My left hand is on the ____ side of my body.",opts:["left","right","back"],c:0},
+  {n:70,cat:'u18',q:"The end of the book is the ____ part.",opts:["first","last","middle"],c:1},
+  {n:71,cat:'u18',q:"If someone is abroad, they are in ____.",opts:["another country","their room","the same street"],c:0},
+  {n:72,cat:'u18',q:"If someone is out of town, they are ____.",opts:["not in their town","at home","in class"],c:0},
+  {n:73,cat:'u18',q:"\"Away\" can mean ____.",opts:["not here","very near","at the top"],c:0},
+  {n:74,cat:'u18',q:"There are books everywhere. This means books are ____.",opts:["in many places","only here","under the table"],c:0},
+  {n:75,cat:'u18',q:"Please come ____; I am here.",opts:["there","here","abroad"],c:1},
+  {n:76,cat:'u18',q:"Can you take this letter ____ to the office?",opts:["there","here","left"],c:0},
+  {n:77,cat:'u18',q:"The side of a bus is its ____.",opts:["front only","one of its sides","bottom only"],c:1},
+  {n:78,cat:'u18',q:"Which phrase names a position?",opts:["the top of the tree","next year","twice a day"],c:0},
+
+  // ─── UNIT 19 ───
+  {n:81,cat:'u19',q:"The train is slow. It goes very ____.",opts:["slowly","slow","slowness"],c:0},
+  {n:82,cat:'u19',q:"She is a bad driver. She drives ____.",opts:["bad","badly","worsely"],c:1},
+  {n:83,cat:'u19',q:"He speaks loudly. 'Loudly' tells us ____.",opts:["how he speaks","where he speaks","when he speaks"],c:0},
+  {n:84,cat:'u19',q:"He is a fast swimmer. He swims ____.",opts:["fast","fastly","fasterly"],c:0},
+  {n:85,cat:'u19',q:"The quiet girl speaks ____.",opts:["quiet","quietly","quietness"],c:1},
+  {n:86,cat:'u19',q:"She speaks English well. 'Well' means ____.",opts:["in a good way","very slowly","not politely"],c:0},
+  {n:87,cat:'u19',q:"'Quickly' means ____.",opts:["at a fast speed","in a sad way","not easily"],c:0},
+  {n:88,cat:'u19',q:"'Sadly' means ____.",opts:["in an unhappy way","in a friendly way","very loudly"],c:0},
+  {n:89,cat:'u19',q:"'Easily' means ____.",opts:["with no difficulty","very strangely","very slowly"],c:0},
+  {n:90,cat:'u19',q:"'Strangely' means ____.",opts:["in a normal way","not in a normal way","in a quiet way"],c:1},
+  {n:91,cat:'u19',q:"Choose the adjective: The bus is ____.",opts:["slow","slowly","slowlyly"],c:0},
+  {n:92,cat:'u19',q:"Choose the adverb: She sings ____.",opts:["beautiful","beautifully","beauty"],c:1},
+  {n:93,cat:'u19',q:"He drives carefully. 'Carefully' describes ____.",opts:["how he drives","his car's color","the time"],c:0},
+  {n:94,cat:'u19',q:"Please speak ____; I cannot hear you.",opts:["loud","loudly","loudness"],c:1},
+  {n:95,cat:'u19',q:"The baby is quiet. The baby sleeps ____.",opts:["quiet","quietly","quietness"],c:1},
+  {n:96,cat:'u19',q:"Which is the opposite of 'slowly'?",opts:["quickly","sadly","badly"],c:0},
+  {n:97,cat:'u19',q:"Which is the opposite of 'well'?",opts:["badly","easily","politely"],c:0},
+  {n:98,cat:'u19',q:"A friendly person treats people ____.",opts:["in a friendly way","in a strange way","in a slow way"],c:0},
+  {n:99,cat:'u19',q:"Which word means 'in a polite way'?",opts:["politely","badly","suddenly"],c:0},
+  {n:100,cat:'u19',q:"'Suddenly' means ____.",opts:["quickly and unexpectedly","very slowly","with no difficulty"],c:0}
+];
+
+// الشرح: يظهر الإجابة الصحيحة تلقائيًا
+const ALL=RAW.map(q=>({...q,exp:'The correct answer is ('+L[q.c]+') '+q.opts[q.c]}));
+
+let curCat='all', questions=[], answered=0, score=0, wrong=0;
+
+function selCat(cat,btn){
+  curCat=cat;
+  document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  const n=cat==='all'?ALL.length:ALL.filter(q=>q.cat===cat).length;
+  document.getElementById('qCount').textContent=n;
+}
+function startQuiz(){
+  questions=curCat==='all'?[...ALL]:ALL.filter(q=>q.cat===curCat);
+  answered=0;score=0;wrong=0;
+  document.getElementById('startScreen').style.display='none';
+  document.getElementById('resultsBox').style.display='none';
+  document.getElementById('quizWrapper').style.display='block';
+  document.getElementById('stickyBar').style.display='block';
+  updateSticky();renderCards();
+  window.scrollTo({top:0});
+}
+function mkHdr(txt){
+  const d=document.createElement('div');d.className='sec-hdr';
+  d.innerHTML='<div class="line"></div><div class="lbl">'+txt+'</div><div class="line r"></div>';
+  return d;
+}
+function renderCards(){
+  const c=document.getElementById('cardsContainer');c.innerHTML='';
+  const cats=curCat==='all'?ORDER:[curCat];
+  let gi=0;
+  cats.forEach(cat=>{
+    const cqs=questions.filter(q=>q.cat===cat);
+    if(!cqs.length)return;
+    c.appendChild(mkHdr(CATS[cat]));
+    cqs.forEach(q=>{
+      const i=gi++;
+      const card=document.createElement('div');
+      card.className='q-card';card.id='card-'+i;
+      card.style.animationDelay=Math.min(i*.018,.5)+'s';
+      const oh=q.opts.map((o,li)=>'<button class="opt" data-orig="'+li+'" data-letter="'+L[li]+'" onclick="checkAns('+i+','+li+','+q.c+')">'+o+'</button>').join('');
+      card.innerHTML='<div class="q-header"><div class="q-num">Q'+q.n+'</div><div class="cat-tag">'+CATS[q.cat]+'</div></div><div class="q-text">'+q.q+'</div><div class="opts" id="opts-'+i+'">'+oh+'</div><div class="q-feedback" id="fb-'+i+'"></div>';
+      c.appendChild(card);
+    });
+  });
+  document.getElementById('submitBtn').disabled=true;
+}
+function checkAns(qi,chosen,correct){
+  const od=document.getElementById('opts-'+qi);
+  if(od.querySelector('.correct,.wrong'))return;
+  const ok=chosen===correct;
+  Array.from(od.querySelectorAll('.opt')).forEach(b=>{
+    b.disabled=true;
+    if(+b.dataset.orig===correct)b.classList.add('correct');
+    else if(+b.dataset.orig===chosen&&!ok)b.classList.add('wrong');
+  });
+  const fb=document.getElementById('fb-'+qi);
+  fb.style.display='block';fb.className='q-feedback '+(ok?'correct':'wrong');
+  fb.textContent=(ok?'✅ Correct! ':'❌ Wrong. ')+questions[qi].exp;
+  document.getElementById('card-'+qi).classList.add(ok?'answered-correct':'answered-wrong');
+  if(ok)score++;else wrong++;
+  answered++;updateSticky();
+  if(answered===questions.length){
+    document.getElementById('submitBtn').disabled=false;
+    setTimeout(()=>document.getElementById('submitBtn').scrollIntoView({behavior:'smooth',block:'center'}),400);
+  }
+}
+function updateSticky(){
+  const t=questions.length,pct=answered>0?Math.round(score/answered*100):0;
+  document.getElementById('sNum').textContent=answered+'/'+t+' أجبت';
+  document.getElementById('sC').textContent='✅ '+score;
+  document.getElementById('sW').textContent='❌ '+wrong;
+  document.getElementById('sP').textContent='📊 '+pct+'%';
+  document.getElementById('sFill').style.width=(t>0?Math.round(answered/t*100):0)+'%';
+}
+function showResults(){
+  const t=questions.length,pct=Math.round(score/t*100);
+  document.getElementById('rScore').textContent=score;
+  document.getElementById('rTotal').textContent=t;
+  document.getElementById('rC').textContent=score;
+  document.getElementById('rW').textContent=wrong;
+  document.getElementById('rP').textContent=pct+'%';
+  setTimeout(()=>{document.getElementById('ringFg').style.strokeDashoffset=402-(402*pct/100);},100);
+  document.getElementById('rMsg').textContent=pct>=90?'🌟 Excellent! أنت متقن!':pct>=75?'👏 Very Good! مجهود رائع!':pct>=60?'👍 Good! راجع الغلط!':'📚 تحتاج مراجعة — إنت قادر!';
+  const rev=document.getElementById('reviewDiv');rev.innerHTML='<h3>📋 مراجعة الإجابات الغلط</h3>';
+  let hw=false;
+  questions.forEach((q,i)=>{
+    const card=document.getElementById('card-'+i);
+    if(card&&card.classList.contains('answered-wrong')){
+      hw=true;
+      rev.innerHTML+='<div class="rev-item wrong"><div class="rt">❌ Q'+q.n+': '+q.q+'</div><div>✅ الإجابة الصحيحة: <strong>'+q.opts[q.c]+'</strong></div><div class="exp">'+q.exp+'</div></div>';
+    }
+  });
+  if(!hw)rev.innerHTML='<p style="color:#10b981;text-align:center;padding:24px;font-size:1.1em;">🎉 كل إجاباتك صح! ممتاز!</p>';
+  document.getElementById('resultsBox').style.display='block';
+  document.getElementById('resultsBox').scrollIntoView({behavior:'smooth'});
+}
+function goHome(){
+  document.getElementById('quizWrapper').style.display='none';
+  document.getElementById('stickyBar').style.display='none';
+  document.getElementById('startScreen').style.display='block';
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+window.onload=()=>{document.getElementById('qCount').textContent=ALL.length;};
+</script>
+</body>
+</html>
